@@ -103,3 +103,29 @@ button:active {
 .number-container div {
   outline: 1px solid #a3a3a3;
 }
+
+@media (max-width: 600px) {
+  * {
+    font-size: 14px;
+  }
+  body {
+    min-width: 100vw;
+    min-height: 100vh;
+    /* padding: 0 4rem; */
+  }
+  .game-score,
+  .current-results {
+    min-width: 200px;
+    width: auto;
+    padding: 1.5rem 2rem;
+  }
+  .choice {
+    min-height: 9rem;
+  }
+}
+
+@media (max-width: 300px) {
+  * {
+    font-size: 11px;
+  }
+}
