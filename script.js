@@ -11,6 +11,7 @@ function handleNumberClick(e) {
     if (e.target.value === ".") {
       if (first.indexOf(".") === -1) first = first.concat(".");
     } else {
+      if (first.length > 11) return;
       if (first[0] === "0" && first.indexOf(".") === -1) first = e.target.value;
       else first = first.concat(e.target.value);
     }
@@ -19,6 +20,7 @@ function handleNumberClick(e) {
     if (e.target.value === ".") {
       if (second.indexOf(".") === -1) second = second.concat(".");
     } else {
+      if (second.length > 11) return;
       if (second[0] === "0" && second.indexOf(".") === -1)
         second = e.target.value;
       else second = second.concat(e.target.value);
@@ -51,13 +53,19 @@ function handleOperatorClick(e) {
 
 function calculate(first, second, operator) {
   first = Number(first);
+
   if (second === "") return first;
   else second = Number(second);
-  if (operator === "+") return first + second;
-  else if (operator === "-") return first - second;
-  else if (operator === "*") return first * second;
-  else if (operator === "/" && second !== 0) return first / second;
+
+  if (operator === "+") return round(first + second);
+  else if (operator === "-") return round(first - second);
+  else if (operator === "*") return round(first * second);
+  else if (operator === "/" && second !== 0) return round(first / second);
   else return "error";
+}
+
+function round(num) {
+  return Math.round(num * 1000000000) / 1000000000;
 }
 
 function resetVariables() {
@@ -79,7 +87,4 @@ operatorButtons.forEach((btn) =>
 );
 
 const clearButton = document.getElementById("clear");
-clearButton.addEventListener("click", () => {
-  resetVariables();
-  //   displayText.textContent = "0";
-});
+clearButton.addEventListener("click", () => resetVariables());
