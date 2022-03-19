@@ -19,6 +19,8 @@ function handleNumberClick(e) {
 function updateValue(variable, e) {
   if (e.target.value === ".") {
     if (variable.indexOf(".") === -1) variable = variable.concat(".");
+  } else if (e.target.value === "+-") {
+    return String(-variable);
   } else {
     if (variable.length > 11) return variable;
     if (variable[0] === "0" && variable.indexOf(".") === -1)
@@ -30,15 +32,16 @@ function updateValue(variable, e) {
 
 function handleOperatorClick(e) {
   if (e.target.value !== "=") {
-    if (lastResult !== 0) {
-      first = String(lastResult);
-      operator = e.target.value;
-    } else if (first !== "" && second !== "") {
+    if (first !== "" && second !== "") {
       let result = calculate(first, second, operator);
       resetVariables();
+      //   lastResult = res
       operator = e.target.value;
       first = String(result);
       displayText.textContent = result;
+    } else if (lastResult !== 0) {
+      first = String(lastResult);
+      operator = e.target.value;
     }
     operator = e.target.value;
     displayOperator.textContent = operator;
