@@ -20,7 +20,7 @@ function updateValue(variable, e) {
   if (e.target.value === ".") {
     if (variable.indexOf(".") === -1) variable = variable.concat(".");
   } else {
-    if (variable.length > 11) return;
+    if (variable.length > 11) return variable;
     if (variable[0] === "0" && variable.indexOf(".") === -1)
       variable = e.target.value;
     else variable = variable.concat(e.target.value);
@@ -51,6 +51,8 @@ function handleOperatorClick(e) {
 }
 
 function calculate(first, second, operator) {
+  const round = (num) => Math.round(num * 1000000000) / 1000000000;
+
   first = Number(first);
 
   if (second === "") return first;
@@ -61,10 +63,6 @@ function calculate(first, second, operator) {
   else if (operator === "*") return round(first * second);
   else if (operator === "/" && second !== 0) return round(first / second);
   else return "error";
-}
-
-function round(num) {
-  return Math.round(num * 1000000000) / 1000000000;
 }
 
 function resetVariables() {
