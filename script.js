@@ -8,25 +8,24 @@ const displayOperator = document.getElementById("display-operator");
 
 function handleNumberClick(e) {
   if (operator === "") {
-    if (e.target.value === ".") {
-      if (first.indexOf(".") === -1) first = first.concat(".");
-    } else {
-      if (first.length > 11) return;
-      if (first[0] === "0" && first.indexOf(".") === -1) first = e.target.value;
-      else first = first.concat(e.target.value);
-    }
+    first = updateValue(first, e);
     displayText.textContent = first;
   } else {
-    if (e.target.value === ".") {
-      if (second.indexOf(".") === -1) second = second.concat(".");
-    } else {
-      if (second.length > 11) return;
-      if (second[0] === "0" && second.indexOf(".") === -1)
-        second = e.target.value;
-      else second = second.concat(e.target.value);
-    }
+    second = updateValue(second, e);
     displayText.textContent = second;
   }
+}
+
+function updateValue(variable, e) {
+  if (e.target.value === ".") {
+    if (variable.indexOf(".") === -1) variable = variable.concat(".");
+  } else {
+    if (variable.length > 11) return;
+    if (variable[0] === "0" && variable.indexOf(".") === -1)
+      variable = e.target.value;
+    else variable = variable.concat(e.target.value);
+  }
+  return variable;
 }
 
 function handleOperatorClick(e) {
