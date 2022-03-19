@@ -17,15 +17,23 @@ function handleNumberClick(e) {
 }
 
 function updateValue(variable, e) {
-  if (e.target.value === ".") {
-    if (variable.indexOf(".") === -1) variable = variable.concat(".");
-  } else if (e.target.value === "+-") {
-    return String(-variable);
-  } else {
-    if (variable.length > 11) return variable;
-    if (variable[0] === "0" && variable.indexOf(".") === -1)
-      variable = e.target.value;
-    else variable = variable.concat(e.target.value);
+  switch (e.target.value) {
+    case ".":
+      if (variable.indexOf(".") === -1)
+        variable = variable.length > 0 ? variable.concat(".") : "0.";
+      break;
+    case "+-":
+      variable = String(-variable);
+      break;
+    case "backspace":
+      variable =
+        variable.length > 1 ? variable.slice(0, variable.length - 1) : "0";
+      break;
+    default:
+      if (variable.length > 11) return variable;
+      if (variable[0] === "0" && variable.indexOf(".") === -1)
+        variable = e.target.value;
+      else variable = variable.concat(e.target.value);
   }
   return variable;
 }
@@ -88,3 +96,6 @@ operatorButtons.forEach((btn) =>
 
 const clearButton = document.getElementById("clear");
 clearButton.addEventListener("click", () => resetVariables());
+
+const backspaceButton = document.getElementById("backspace");
+backspaceButton.addEventListener("click", handleNumberClick);
